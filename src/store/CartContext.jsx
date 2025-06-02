@@ -39,6 +39,7 @@ const CartReducer = (state, action) => {
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.item.id
     );
+    //Next we will find the item based on the index
     const existingCartItem = state.items[existingCartItemIndex];
     //create new array to updated items in the array
     const updatedItems = [...state.items];
@@ -46,7 +47,7 @@ const CartReducer = (state, action) => {
       //if the quantity is 1 we will remove the item from the cart
       updatedItems.splice(existingCartItemIndex, 1);
     } else {
-      //if the quantity is more than 1 we will update the quantity of the item
+      //if the quantity is more than 1 we will decrement the quantity of the item
       const updatedItem = {
         ...existingCartItem,
         quantity: existingCartItem.quantity - 1,
@@ -63,7 +64,7 @@ const CartReducer = (state, action) => {
 };
 
 export const CartContextprovider = ({ children }) => {
-  useReducer();
+  const [cart, dispatchCartAction] = useReducer(CartReducer, { items: [] });
 
   return <CartContext.Provider>{children}</CartContext.Provider>;
 };
