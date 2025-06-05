@@ -4,16 +4,13 @@ import { createPortal } from "react-dom";
 const Model = ({ children, open, className }) => {
   const dialog = useRef();
   useEffect(() => {
+    const modal = dialog.current;
     if (open) {
-      dialog.current.showModal();
-    } else {
-      dialog.current.close();
+      modal.showModal();
     }
 
     // Cleanup function to close the dialog when the component unmounts
-    return () => {
-      dialog.current.close();
-    };
+    return () => modal.close();
   }, [open]);
 
   return createPortal(
