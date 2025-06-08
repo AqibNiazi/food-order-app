@@ -33,9 +33,9 @@ export const UserProgressContextProvider = ({ children }) => {
   };
 
   return (
-    <UserProgressContextProvider value={userProgressCtx}>
+    <UserProgressContext.Provider value={userProgressCtx}>
       {children}
-    </UserProgressContextProvider>
+    </UserProgressContext.Provider>
   );
 };
 

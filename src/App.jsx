@@ -1,4 +1,5 @@
 import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 import Header from "./components/Header";
 import Meals from "./components/Meals";
 import { CartContextprovider } from "./store/CartContext";
@@ -10,7 +11,7 @@ function App() {
         <Header />
         <Meals />
         <Cart />
-        {/* The Cart component will be rendered conditionally based on the user progress context */}
+        <Checkout />
       </CartContextprovider>
     </UserProgressContextProvider>
   );
