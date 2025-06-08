@@ -8,7 +8,7 @@ const CartItem = ({ name, quantity, price, onIncrease, onDecrease }) => {
       </p>
       <p className="cart-item-actions">
         <button onClick={onDecrease}>-</button>
-        <button>QTY</button>
+        <button>{quantity}</button>
         <button onClick={onIncrease}>+</button>
       </p>
     </li>
