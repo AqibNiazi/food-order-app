@@ -1,6 +1,7 @@
 import React from "react";
 import MealItem from "./MealItem";
 import useHTTP from "../hooks/useHTTP";
+import Error from "./Error";
 
 const requestConfig = {};
 
@@ -12,7 +13,11 @@ const Meals = () => {
   } = useHTTP("http://localhost:3000/meals", requestConfig, []);
 
   if (isLoading) {
-    return <p>Fetching Meals...</p>;
+    return <p className="center">Fetching Meals...</p>;
+  }
+
+  if (error) {
+    return <Error title="Failed to fetch meals" message={error} />;
   }
 
   return (
