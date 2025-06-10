@@ -7,7 +7,6 @@ import Input from "./UI/Input";
 import UserProgressContext from "../store/UserProgressContext";
 import useHTTP from "../hooks/useHTTP";
 import Error from "./Error";
-import { use } from "react";
 
 const requestConfig = {
   method: "POST",
@@ -42,12 +41,10 @@ const Checkout = () => {
     clearData();
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const fd = new FormData(event.target);
+  const checkoutAction = async (fd) => {
     const customerData = Object.fromEntries(fd.entries());
 
-    sendRequest(
+    await sendRequest(
       JSON.stringify({
         order: {
           items: cartCtx.items,
@@ -75,7 +72,7 @@ const Checkout = () => {
 
   return (
     <Modal open={userProgressCtx.progress === "checkout"}>
-      <form onSubmit={handleSubmit}>
+      <form action={checkoutAction}>
         <h2>Checkout</h2>
         <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
 
