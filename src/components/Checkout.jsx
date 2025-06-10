@@ -7,6 +7,7 @@ import Input from "./UI/Input";
 import UserProgressContext from "../store/UserProgressContext";
 import useHTTP from "../hooks/useHTTP";
 import Error from "./Error";
+import { use } from "react";
 
 const requestConfig = {
   method: "POST",
@@ -24,6 +25,7 @@ const Checkout = () => {
     isLoading: isSending,
     error,
     sendRequest,
+    clearData,
   } = useHTTP("http://localhost:3000/orders", requestConfig);
 
   const cartTotal = cartCtx.items.reduce((totalPrice, item) => {
@@ -32,6 +34,12 @@ const Checkout = () => {
 
   const handleClose = () => {
     userProgressCtx.hideCheckout();
+  };
+
+  const handleFinish = () => {
+    userProgressCtx.hideCheckout();
+    cartCtx.clearCart();
+    clearData();
   };
 
   const handleSubmit = (event) => {
@@ -53,13 +61,13 @@ const Checkout = () => {
     return (
       <Modal
         open={userProgressCtx.progress === "checkout"}
-        onClose={handleClose}
+        onClose={handleFinish}
       >
         <h2>Success!</h2>
         <p>Order Submitted Successfully!</p>
         <p>We will get back to you via email within next few mintues</p>
         <p className="model-actions">
-          <Button onClick={handleClose}>Okay</Button>
+          <Button onClick={handleFinish}>Okay</Button>
         </p>
       </Modal>
     );
