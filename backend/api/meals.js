@@ -1,11 +1,11 @@
-import fs from "node:fs/promises";
-import path from "path";
+// backend/api/meals.js
+import fs from "fs/promises";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const filePath = path.join(process.cwd(), "data", "available-meals.json");
-    const data = await fs.readFile(filePath, "utf-8");
-    return res.status(200).json(JSON.parse(data));
+    const data = await fs.readFile("./data/available-meals.json", "utf8");
+    res.status(200).json(JSON.parse(data));
+  } else {
+    res.status(405).json({ message: "Method not allowed" });
   }
-  res.status(405).json({ message: "Method not allowed" });
 }
