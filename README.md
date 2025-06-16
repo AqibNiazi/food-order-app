@@ -106,11 +106,9 @@ Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## 📸 Screenshots
 
-_Add screenshots of:_
-
-- Meal Listing Page
-- Cart View
-- Checkout Form
+![Meal Listing Page](./frontend/public/meals-page.png)
+![Cart View](./frontend/public/cart.png)
+![Checkout Form](./frontend/public/checkout.png)
 
 ## 💡 Key React Concepts Used
 
