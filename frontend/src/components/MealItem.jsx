@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { currencyFormatter } from "../util/CurrencyFormatter";
 import Button from "./UI/Button";
 import CartContext from "../store/CartContext";
-
+const baseUrl = import.meta.env.VITE_API_URL;
 const MealItem = ({ meal }) => {
   const cartCtx = useContext(CartContext);
   const handleAddMealToCart = () => {
@@ -11,7 +11,7 @@ const MealItem = ({ meal }) => {
   return (
     <li className="meal-item">
       <article>
-        <img src={`http://localhost:3000/${meal.image}`} alt={meal.name} />
+        <img src={`${baseUrl}/${meal.image}`} alt={meal.name} />
         <div>
           <h3>{meal.name}</h3>
           <p className="meal-item-price">

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+const baseUrl = import.meta.env.VITE_API_URL;
 import CartContext from "../store/CartContext";
 import Modal from "./UI/Modal";
 import Button from "./UI/Button";
@@ -25,7 +26,7 @@ const Checkout = () => {
     error,
     sendRequest,
     clearData,
-  } = useHTTP("http://localhost:3000/orders", requestConfig);
+  } = useHTTP(`${baseUrl}/api/orders`, requestConfig);
 
   const cartTotal = cartCtx.items.reduce((totalPrice, item) => {
     return totalPrice + item.quantity * item.price;

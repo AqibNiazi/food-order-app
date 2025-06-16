@@ -2,7 +2,7 @@ import React from "react";
 import MealItem from "./MealItem";
 import useHTTP from "../hooks/useHTTP";
 import Error from "./Error";
-
+const baseUrl = import.meta.env.VITE_API_URL;
 const requestConfig = {};
 
 const Meals = () => {
@@ -10,7 +10,7 @@ const Meals = () => {
     data: loadedMeals,
     isLoading,
     error,
-  } = useHTTP("http://localhost:3000/meals", requestConfig, []);
+  } = useHTTP(`${baseUrl}/api/meals`, requestConfig, []);
 
   if (isLoading) {
     return <p className="center">Fetching Meals...</p>;
