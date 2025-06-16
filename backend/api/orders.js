@@ -1,17 +1,11 @@
 import fs from "fs/promises";
 import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "*"); // Set specific domain in production for security
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // ✅ Handle preflight OPTIONS request
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
@@ -36,25 +30,20 @@ export default async function handler(req, res) {
     }
 
     try {
-      const filePath = path.join(__dirname, "..", "data", "orders.json");
+      const filePath = path.join("/tmp", "orders.json");
 
       // Read existing orders
-      const fileExists = await fs
-        .access(filePath)
-        .then(() => true)
-        .catch(() => false);
-
       let orders = [];
-
-      if (fileExists) {
-        const data = await fs.readFile(filePath, "utf-8");
-        orders = JSON.parse(data || "[]");
+      try {
+        const existing = await fs.readFile(filePath, "utf-8");
+        orders = JSON.parse(existing);
+      } catch (_) {
+        orders = [];
       }
 
       const newOrder = { ...orderData, id: Math.random().toString() };
       orders.push(newOrder);
 
-      // Write updated orders
       await fs.writeFile(filePath, JSON.stringify(orders, null, 2));
 
       return res.status(201).json({ message: "Order created!" });
